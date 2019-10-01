@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "module": "commonjs",
+    "lib": ["esnext", "dom", "dom.iterable"],
+    "allowJs": false,
+    "outDir": "./dist",
+    "declaration": true,
+    "removeComments": true,
+    "downlevelIteration": true,
+    "strict": true,
+    "strictFunctionTypes": false,
+    "noImplicitAny": false,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "moduleResolution": "node",
+    "listEmittedFiles": true,
+    "pretty": true,
+    "diagnostics": true,
+    "sourceMap": true,
+    "jsx": "react",
+    "esModuleInterop": true
+  },
+  "include": ["lib"]
+}
