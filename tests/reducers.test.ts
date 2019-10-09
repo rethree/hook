@@ -77,9 +77,12 @@ describe("saveFetched", () => {
     const reduced = saveFetched(state)([
       {
         tag: "Completed" as const,
-        value: 42,
-        meta: {
-          args: ["resource1", 30]
+        value: {
+          payload: 42,
+          meta: {
+            url: "resource1",
+            ttl: 30
+          }
         }
       }
     ]);
@@ -100,7 +103,8 @@ describe("saveFetched", () => {
         tag: "Faulted" as const,
         fault: 42,
         meta: {
-          args: ["resource1", 30]
+          url: "resource1",
+          ttl: 30
         }
       }
     ]);

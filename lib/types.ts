@@ -1,7 +1,13 @@
-import { StrMap, Options } from "@recubed/async";
 import { PREFIX } from "./constants";
+import { Options } from "@recubed/task";
 
 export type _ = unknown;
+
+export type Void = () => void;
+
+export type StrMap<a = any> = {
+  [key: string]: a;
+};
 
 export type Distribute<u> = (u extends any
   ? (union: u) => void
@@ -44,10 +50,13 @@ export type Deps2Resources<a extends StrDep<_>[]> = Union<
 
 export type Response<a> = Options<a> & {
   fault?: any;
-  value?: a;
-  meta: {
-    args: [string, number];
-  };
+  value?: {
+    payload: a;
+      meta: {
+        url: string;
+        ttl: number;
+      }
+    };
 };
 
 export type Resource<a> = {

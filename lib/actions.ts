@@ -1,7 +1,7 @@
 import { AnyAction } from "redux";
 import { ofType, unionize, UnionOf } from "unionize";
 import { Dependency, _ } from "./types";
-import { Options } from "@recubed/async";
+import { Options } from "@recubed/task";
 
 export const Actions = unionize(
   {

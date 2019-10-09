@@ -1,4 +1,3 @@
-import { StrMap } from "@recubed/async";
 import { mount, ReactWrapper } from "enzyme";
 import { ComponentType, FunctionComponent } from "react";
 import { act } from "react-dom/test-utils";
@@ -7,7 +6,7 @@ import { Observable, partition } from "rxjs";
 import { map, skip, windowCount } from "rxjs/operators";
 import { Recubed } from "../lib";
 import { PREFIX } from "../lib/constants";
-import { Dependency, Resource, State, _ } from "../lib/types";
+import { Dependency, Resource, State, _, StrMap } from "../lib/types";
 import { WillEmit, WithStore } from "./_utils";
 
 const { hook: useResources, reducer } = Recubed({

@@ -13,7 +13,7 @@
     "lint": "eslint .",
     "build": "tsc -p tsconfig.build.json",
     "test:dev": "yarn test --clearCache --onlyChanged",
-    "test": "jest --testPathPattern tests/*.test.{ts,tsx}",
+    "test": "jest",
     "test:cov": "yarn test --coverage"
   },
   "devDependencies": {
@@ -43,7 +43,7 @@
     "typescript": "3.6"
   },
   "dependencies": {
-    "@recubed/async": "^0.1.3",
+    "@recubed/task": "^0.0.3",
     "unionize": "^3.0.2"
   }
 }

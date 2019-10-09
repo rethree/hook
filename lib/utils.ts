@@ -1,5 +1,4 @@
-import { Union } from "./types";
-import { StrMap } from "@recubed/async";
+import { Union, StrMap } from "./types";
 
 export const isString = x => typeof x === "string";
 

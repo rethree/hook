@@ -1,9 +1,8 @@
-import { AnyAction } from "redux";
-import { UnionOf } from "unionize";
-import { Actions, isUnion } from "./actions";
-import { Dependency, Response, Resource } from "./types";
-import { merge } from "./utils";
-import { StrMap, _ } from "@recubed/async";
+import { AnyAction } from 'redux';
+import { UnionOf } from 'unionize';
+import { Actions, isUnion } from './actions';
+import { Dependency, Resource, Response, _, StrMap } from './types';
+import { merge } from './utils';
 
 export const markStale = <a extends object>(state: a) => (
   xs: Dependency<_>[]
@@ -25,19 +24,10 @@ export const saveFetched = <a extends object, b>(state: a) => (
   merge(
     state,
     xs.reduce<StrMap<Resource<b>>>(
-      (
-        acc,
-        {
-          fault,
-          value,
-          meta: {
-            args: [url, ttl]
-          }
-        }
-      ) => ({
+      (acc, { fault, value: { payload, meta: { url, ttl } } }) => ({
         ...acc,
         [url]: {
-          data: value,
+          data: payload,
           meta: {
             stale: false,
             timestamp: Date.now(),
