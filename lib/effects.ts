@@ -1,31 +1,25 @@
-import { Dispatch } from "redux";
-import { Actions } from "./actions";
-import { HTTP, TTL } from "./constants";
-import { Config, Dependency, Http, _ } from "./types";
-import { Task, Parallel, complete } from "@recubed/task";
+import { Dispatch } from 'redux';
+import { Actions } from './actions';
+import { HTTP, TTL } from './constants';
+import { Config, Dependency, Http, _ } from './types';
+import { Task, Parallel, complete } from '@recubed/task';
+import zip from 'lodash.zip';
 
 const normalize = (url: string) => (HTTP.test(url) ? url : `https://${url}`);
 
-const HttpTask = (http: Http, configTtl?: number) => ({
-  url,
-  opts,
-  ttl
-}: Dependency<_>) =>
-  Task(async f => {
-    const res = await http(normalize(url), opts);
-    f({ payload: res, meta: { url, ttl: ttl || configTtl || TTL } });
-  });
+const HttpTask = (http: Http) => ({ url, opts }: Dependency<_>) =>
+  Task(async f => f(await http(normalize(url), opts)));
 
-export const define = ({ http, ttl }: Config, dispatch: Dispatch) => <
+export const define = (http: Http, dispatch: Dispatch) => <
   a extends Dependency<_>[]
 >(
   deps: a
 ) => {
-  const asHttpTask = HttpTask(http, ttl);
+  const httpTask = HttpTask(http);
 
   return complete(dispatch(Actions.$$RECUBED_MARK_STALE(deps))).chain(() =>
-    Parallel(...deps.map(asHttpTask)).map(res =>
-      dispatch(Actions.$$RECUBED_SAVE_FETCHED(res))
+    Parallel(...deps.map(httpTask)).map(res =>
+      dispatch(Actions.$$RECUBED_SAVE_FETCHED(zip(res, deps)))
     )
   );
 };

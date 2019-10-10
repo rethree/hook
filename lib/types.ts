@@ -1,5 +1,5 @@
-import { PREFIX } from "./constants";
-import { Options } from "@recubed/task";
+import { PREFIX } from './constants';
+import { Options } from '@recubed/task';
 
 export type _ = unknown;
 
@@ -41,7 +41,7 @@ export type StrDep<a, b extends string = string> = Dependency<a, b> | b;
 export type Deps2Resources<a extends StrDep<_>[]> = Union<
   {
     [k in keyof a]: a[k] extends Dependency<infer b>
-      ? Record<a[k]["url"], Resource<b>>
+      ? Record<a[k]['url'], Resource<b>>
       : a[k] extends string
       ? Record<a[k], Resource<_>>
       : Record<string, _>;
@@ -49,14 +49,14 @@ export type Deps2Resources<a extends StrDep<_>[]> = Union<
 >;
 
 export type Response<a> = Options<a> & {
-  fault?: any;
   value?: {
-    payload: a;
-      meta: {
-        url: string;
-        ttl: number;
-      }
+    payload?: a;
+    fault?: any;
+    meta: {
+      url: string;
+      ttl: number;
     };
+  };
 };
 
 export type Resource<a> = {

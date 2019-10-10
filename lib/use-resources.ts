@@ -25,13 +25,13 @@ export const hook = (cfg: Config) =>
     eq = shallowEqual
   ): [Deps2Resources<a> | {}, Void] {
     const { getState, dispatch } = useStore<State<_>>();
-    const [deps, urls, task] = useMemo(() => {
+    const [deps, urls, exec] = useMemo(() => {
       const deps = dependencies.map(normalize);
       return [deps, deps.map(({ url }) => url), define(cfg, dispatch)];
     }, [dependencies]);
-    const fetch = async () => {
+    const fetch = () => {
       const invalid = takeInvalid(deps)(getState);
-      return invalid.length < 1 || task(invalid);
+      return invalid.length < 1 || exec(invalid)();
     };
 
     useEffect(() => void fetch(), UseOnce);
