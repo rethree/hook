@@ -241,13 +241,14 @@ describe('useResources', () => {
 
       const stream = mountEffectful(ShouldUseCache, store);
 
-      stream.pipe(skip(1)).subscribe(() => {
-        expect(spy).toHaveBeenCalledWith({
+      stream.pipe(skip(2)).subscribe(() => {
+        const [ stale ] = spy.mock.calls;
+        expect(stale).toMatchObject([{
           payload: [
-            [{ url: 'success0', ttl: TTL }, { url: 'success1', ttl: TTL }]
+            { url: 'success0', ttl: TTL }, { url: 'success1', ttl: TTL }
           ],
           type: '$$RECUBED_MARK_STALE'
-        });
+        }]);
         done();
       }, done.fail);
     });
