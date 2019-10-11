@@ -1,5 +1,4 @@
 import { Parallel, Task, fromPromise, isFaulted } from '@recubed/task';
-import zip from 'lodash.zip';
 import { Dispatch } from 'redux';
 import { Actions } from './actions';
 import { HTTP } from './constants';
@@ -9,6 +8,9 @@ const normalize = (url: string) => (HTTP.test(url) ? url : `https://${url}`);
 
 const HttpTask = (http: Http) => ({ url, opts }: Dependency<_>) =>
   fromPromise(f => f(http(normalize(url), opts)));
+
+const zip = <a extends any[], b extends any[]>(left: a, right: b) =>
+  left.map((x, i) => [x, right[i]]);
 
 export const effects = (http: Http, dispatch: Dispatch) => <
   a extends Dependency<_>[]
