@@ -13,8 +13,8 @@
     "lint": "eslint .",
     "build": "tsc -p tsconfig.build.json",
     "test:dev": "yarn test --clearCache --onlyChanged",
-    "test": "jest --runInBand",
-    "test:cov": "yarn test --coverage"
+    "test": "jest",
+    "test:cov": "yarn test --coverage && cat ./coverage/lcov.info | coveralls"
   },
   "devDependencies": {
     "@types/enzyme": "^3.10.3",
@@ -32,7 +32,7 @@
     "eslint-plugin-react": "^7.14.3",
     "eslint-plugin-react-hooks": "^2.0.1",
     "jest": "^24.8.0",
-    "react": "^16.10.1",
+    "react": "^16.10.2",
     "react-dom": "^16.9.0",
     "react-redux": "^7.1.1",
     "redux": "^4.0.4",
@@ -44,6 +44,7 @@
   "dependencies": {
     "@recubed/task": "^0.0.7",
     "lodash.zip": "^4.2.0",
-    "unionize": "^3.0.2"
+    "unionize": "^3.0.2",
+    "use-async-effect": "^2.2.1"
   }
 }

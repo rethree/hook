@@ -16,8 +16,12 @@ export const effects = (http: Http, dispatch: Dispatch) => <
   deps: a
 ) =>
   Task(f => f(dispatch(Actions.$$RECUBED_MARK_STALE(deps)))).chain(() => {
-    return Parallel(...deps.map(HttpTask(http))).resume(res => {
-      const response = zip(deps, isFaulted(res) ? res.fault : res) as any;
-      dispatch(Actions.$$RECUBED_SAVE_FETCHED(response));
-    });
+    return Parallel(...deps.map(HttpTask(http))).resume(res =>
+      dispatch(
+        Actions.$$RECUBED_SAVE_FETCHED(zip(
+          deps,
+          isFaulted(res) ? res.fault : res
+        ) as any)
+      )
+    );
   });
