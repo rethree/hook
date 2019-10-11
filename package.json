@@ -13,7 +13,7 @@
     "lint": "eslint .",
     "build": "tsc -p tsconfig.build.json",
     "test:dev": "yarn test --clearCache --onlyChanged",
-    "test": "jest",
+    "test": "jest --runInBand",
     "test:cov": "yarn test --coverage"
   },
   "devDependencies": {
@@ -42,7 +42,7 @@
     "typescript": "3.6"
   },
   "dependencies": {
-    "@recubed/task": "^0.0.4",
+    "@recubed/task": "^0.0.7",
     "lodash.zip": "^4.2.0",
     "unionize": "^3.0.2"
   }

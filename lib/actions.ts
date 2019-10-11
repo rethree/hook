@@ -1,12 +1,11 @@
 import { AnyAction } from 'redux';
 import { ofType, unionize, UnionOf } from 'unionize';
-import { Dependency, _ } from './types';
-import { Options } from '@recubed/task';
+import { Dependency, _, Response } from './types';
 
 export const Actions = unionize(
   {
     $$RECUBED_MARK_STALE: ofType<Dependency<_>[]>(),
-    $$RECUBED_SAVE_FETCHED: ofType<[Dependency<_>, Options<unknown>][]>()
+    $$RECUBED_SAVE_FETCHED: ofType<Response<_>[]>()
   },
   {
     tag: 'type',

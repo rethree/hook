@@ -1,5 +1,5 @@
+import { Completion, Failure } from '@recubed/task';
 import { PREFIX } from './constants';
-import { Options } from '@recubed/task';
 
 export type _ = unknown;
 
@@ -36,9 +36,9 @@ export type Dependency<a, b extends string = string> = {
   opts?: StrMap;
 };
 
-export type StrDep<a, b extends string = string> = Dependency<a, b> | b;
+export type DependencyLike<a, b extends string = string> = Dependency<a, b> | b;
 
-export type Deps2Resources<a extends StrDep<_>[]> = Union<
+export type Deps2Resources<a extends DependencyLike<_>[]> = Union<
   {
     [k in keyof a]: a[k] extends Dependency<infer b>
       ? Record<a[k]['url'], Resource<b>>
@@ -48,16 +48,10 @@ export type Deps2Resources<a extends StrDep<_>[]> = Union<
   }
 >;
 
-export type Response<a> = Options<a> & {
-  value?: {
-    payload?: a;
-    fault?: any;
-    meta: {
-      url: string;
-      ttl: number;
-    };
-  };
-};
+export type Response<a> = [
+  { url: string; ttl: number },
+  Partial<Failure & Completion<a>>
+];
 
 export type Resource<a> = {
   data?: a;

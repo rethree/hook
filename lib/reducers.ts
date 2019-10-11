@@ -24,10 +24,10 @@ export const saveFetched = <a extends object, b>(state: a) => (
   merge(
     state,
     xs.reduce<StrMap<Resource<b>>>(
-      (acc, { fault, value: { payload, meta: { url, ttl } } }) => ({
+      (acc, [{ url, ttl }, { fault, value }]) => ({
         ...acc,
         [url]: {
-          data: payload,
+          data: value,
           meta: {
             stale: false,
             timestamp: Date.now(),
