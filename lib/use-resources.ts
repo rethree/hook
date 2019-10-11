@@ -7,7 +7,7 @@ import {
   Config,
   Dependency,
   DependencyLike,
-  Deps2Resources,
+  ResourcesFromDeps,
   State,
   Void,
   _
@@ -25,7 +25,7 @@ const normalize = <a extends DependencyLike<_>>(ttl?: number) => (
 const maybeTasks = (
   getState: () => Store,
   deps: Dependency<_>[],
-  tasks: (deps: Dependency<_>[]) => TaskDef<void>
+  tasks: (deps: Dependency<_>[]) => TaskDef<_>
 ) => () => {
   const invalid = takeInvalid(deps)(getState);
   return invalid.length < 1 || tasks(invalid);
@@ -35,7 +35,7 @@ export const hook = ({ http, ttl }: Config) =>
   function useResources<a extends DependencyLike<_>[]>(
     dependencies: a,
     eq = shallowEqual
-  ): [Deps2Resources<a> | {}, Void] {
+  ): [ResourcesFromDeps<a> | {}, Void] {
     const { getState, dispatch } = useStore();
     const [deps, urls, tasks] = useMemo(() => {
       const deps = dependencies.map(normalize(TTL || ttl));

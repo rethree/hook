@@ -31,14 +31,14 @@ export type Config = {
 
 export type Dependency<a, b extends string = string> = {
   url: b;
-  ttl?: number;
-  payload?: a;
+  ttl: number;
   opts?: StrMap;
+  _type?: a;
 };
 
 export type DependencyLike<a, b extends string = string> = Dependency<a, b> | b;
 
-export type Deps2Resources<a extends DependencyLike<_>[]> = Union<
+export type ResourcesFromDeps<a extends DependencyLike<_>[]> = Union<
   {
     [k in keyof a]: a[k] extends Dependency<infer b>
       ? Record<a[k]['url'], Resource<b>>
@@ -48,10 +48,9 @@ export type Deps2Resources<a extends DependencyLike<_>[]> = Union<
   }
 >;
 
-export type Response<a> = [
-  { url: string; ttl: number },
-  Partial<Failure & Completion<a>>
-];
+export type Response<a> = Partial<Failure & Completion<a>>;
+
+export type ResourceSource<a> = [Dependency<a>, Response<a>];
 
 export type Resource<a> = {
   data?: a;

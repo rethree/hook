@@ -1,6 +1,6 @@
-import { compose } from "redux";
-import { PREFIX } from "./constants";
-import { Dependency, Resource, State, _ } from "./types";
+import { compose } from 'redux';
+import { PREFIX } from './constants';
+import { Dependency, Resource, State, _ } from './types';
 
 export const isOutdated = <a>({ meta: { timestamp, ttl } }: Resource<a>) =>
   timestamp + Date.now() >= ttl;

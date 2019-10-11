@@ -1,11 +1,11 @@
 import { AnyAction } from 'redux';
 import { ofType, unionize, UnionOf } from 'unionize';
-import { Dependency, _, Response } from './types';
+import { Dependency, _, ResourceSource } from './types';
 
 export const Actions = unionize(
   {
     $$RECUBED_MARK_STALE: ofType<Dependency<_>[]>(),
-    $$RECUBED_SAVE_FETCHED: ofType<Response<_>[]>()
+    $$RECUBED_SAVE_FETCHED: ofType<ResourceSource<_>[]>()
   },
   {
     tag: 'type',
